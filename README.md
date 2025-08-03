@@ -25,13 +25,19 @@ Build a simplified Telemedicine backend service with the following features:
 # Project Setup Instructions :
 
 * git clone https://github.com/Aditya7369/django_telemedicine_rest_api.git
-* cd dp_telemedicine
+* cd django_telemedicine_rest_api
 
 * python -m venv env
 * source env/bin/activate      # Linux/Mac
 * env\Scripts\activate         # Windows
 
+* Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process # if error
+
 * pip install -r requirements.txt
+  
+* python .\manage.py makemigrations
+* python .\manage.py migrate
+  
 * python manage.py runserver
 
 ---
@@ -42,6 +48,7 @@ Build a simplified Telemedicine backend service with the following features:
 Please visit the above notebook
 
 ---
+
 
 
 

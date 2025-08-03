@@ -1,0 +1,75 @@
+▰ Django Backend Project : Telemedicine backend service
+
+▰ Backend Developer Practical Assignment
+This assignment is designed to evaluate your practical backend development skills.
+You will be expected to build, secure and document a simple API-based service using the following technologies and practices.
+
+
+▰ Skills to be Evaluated
+⇝ Python (Flask/FastAPI/Django)
+⇝ REST API design and development
+⇝ JWT-based Authentication
+⇝ PostgreSQL database integration
+⇝ WebSocket integration (basic use-case)
+⇝ Docker (bonus)
+⇝ API documentation (Swagger/OpenAPI)
+
+▰ Assignment Scenario
+Build a simplified Telemedicine backend service with the following features:
+
+▰ Functional Requirements
+⇝ User Registration and Login with JWT authentication
+⇝ Doctor and Patient roles with basic CRUD
+⇝ Appointment creation and listing per user
+⇝ WebSocket or polling endpoint to simulate real-time status update for a doctor (online/offline)
+⇝ Swagger UI or Postman collection for all endpoints
+
+▰ Database Schema (Example)
+⇝ Users: id, name, email, password_hash, role
+⇝ Appointments: id, patient_id, doctor_id, status, timestamp
+
+▰ Evalua on Criteria
+⇝ Code clarity and structure
+⇝ Proper API response design and status codes
+⇝ Secure authentication and validation
+⇝ Use of ORM (SQLAlchemy, Django ORM, etc.)
+⇝ Ability to explain choices in implementation
+
+▰ Bonus Points
+⇝ Dockerization of the project
+⇝ Unit tests for at least 2 endpoints
+⇝ Logging & error handling
+
+▰ Submission 
+⇝ Please submit a GitHub repo link of the project including README with setup instructions
+
+
+###============================================================================================
+
+
+∎ Project SetUp
+
+> python -m venv venv_TBS
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  --# if running scripts is disabled on this system
+> .\venv_TBS\Scripts\activate
+
+> pip install djangorestframework djangorestframework-simplejwt
+
+> django-admin startproject dp_telemedicine
+> cd dp_telemedicine
+> python manage.py startapp da_users
+
+> python .\manage.py makemigrations
+> python .\manage.py migrate
+
+> python .\manage.py createsuperuser --# admin
+
+> pip freeze > requirements.txt
+> pip install -r requirements.txt
+
+python manage.py startapp da_appointments
+
+> pip install drf-yasg --#  (Yet Another Swagger Generator)
+
+###============================================================================================
+

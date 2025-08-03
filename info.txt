@@ -71,5 +71,20 @@ python manage.py startapp da_appointments
 
 > pip install drf-yasg --#  (Yet Another Swagger Generator)
 
+
+###============================================================================================
+
+Areas for Improvement:
+* PostgreSQL database integration
+* WebSocket integration
+* Docker integration
+* API documentation with Swagger
+* Unit tests
+* Logging & error handling
+
+###============================================================================================
+
+
+
 ###============================================================================================
 

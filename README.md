@@ -1,188 +1,40 @@
 ﻿# django_telemedicine_rest_api
+---
+▰ Django Backend Project : Telemedicine backend service
 
-# %%
-import http, requests,json
+▰ Backend Developer Practical Assignment
+This assignment is designed to evaluate your practical backend development skills.
+You will be expected to build, secure and document a simple API-based service using the following technologies and practices.
 
-# def test_api(url,data,method):
-#     response = eval(f"requests.{method}('{str(url)}', json={str(data)})") # response = requests.post(url, json=data)
-#     print(json.dumps(response.json(), indent=4) if response.status_code in (200,201,204) else f"status_code:{response.status_code}\n{response.text}")
+▰ Assignment Scenario
+Build a simplified Telemedicine backend service with the following features:
 
-def test_api(url, data=None, method='get', token=None):
-    headers = {}
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
+▰ Functional Requirements
+* User Registration and Login with JWT authentication
+* Doctor and Patient roles with basic CRUD
+* Appointment creation and listing per user
+* WebSocket or polling endpoint to simulate real-time status update for a doctor (online/offline)
+* Swagger UI or Postman collection for all endpoints
 
-    method = method.lower()
-    if method == 'post':
-        response = requests.post(url, json=data, headers=headers)
-    elif method == 'get':
-        response = requests.get(url, params=data, headers=headers)
-    elif method == 'put':
-        response = requests.put(url, json=data, headers=headers)
-    elif method == 'patch':
-        response = requests.patch(url, json=data, headers=headers)
-    elif method == 'delete':
-        response = requests.delete(url, json=data, headers=headers)
-    else:
-        print("Invalid method")
-        return
+▰ Database Schema (Example)
+* Users: id, name, email, password_hash, role
+* Appointments: id, patient_id, doctor_id, status, timestamp
 
-    print(f"\nURL: {response.url}")
-    print(f"Status Code: {response.status_code}")
+---
 
-    try:
-        print(json.dumps(response.json(), indent=4))
-    except:
-        print(response.text)
+# Project Setup Instructions :
 
+* git clone https://github.com/Aditya7369/django_telemedicine_rest_api.git
+* cd dp_telemedicine
 
-# %% [markdown]
-# # User Registration and Login with JWT authentication
+* python -m venv env
+* source env/bin/activate      # Linux/Mac
+* env\Scripts\activate         # Windows
 
-# %%
-# login
-url = 'http://127.0.0.1:8000/api/users/login/'
-data = {
-    "username": "userA",
-    "password": "userA#passwd"
-}
-test_api(url=url,data=data,method='post')
+* pip install -r requirements.txt
+* python manage.py runserver
 
-# %%
-response = requests.post(url,data)
-refresh_token=response.json()['refresh']
-access_token=response.json()['access']
+---
 
-# %%
-# refresh
-url = 'http://127.0.0.1:8000/api/users/refresh/'
-data = {
-    "refresh": refresh_token
-}
-test_api(url=url,data=data,method='post')
-
-# %%
-# register
-url = 'http://127.0.0.1:8000/api/users/register/'
-data = {
-    "username": "user7",
-    "email": "user7@gmail.com",
-    "password": "user7#passwd",
-    "role": 'patient' # (doctor'/patient)
-}
-test_api(url=url,data=data,method='post')
-
-# %% [markdown]
-# # Doctor and Patient roles with basic CRUD
-
-# %%
-# List of users
-url = 'http://127.0.0.1:8000/api/users/'
-token=access_token
-test_api(url=url,data=None,method='get',token=token)
-
-# %%
-# List of doctors
-url = 'http://127.0.0.1:8000/api/users/?role=doctor'
-token=access_token
-test_api(url=url,data=None,method='get',token=token)
-
-# %%
-# List of patients
-url = 'http://127.0.0.1:8000/api/users/?role=patient'
-token=access_token
-test_api(url=url,data=None,method='get',token=token)
-
-# %%
-# Update user
-url = 'http://127.0.0.1:8000/api/users/3/'
-token=access_token
-data = {
-    "username": "user2Updated",
-    "email": "user2@gmail.com",
-    "role": "patient"
-}
-test_api(url=url, data=data, method='patch', token=token)
-
-# %%
-# Delete user
-url = 'http://127.0.0.1:8000/api/users/7/'
-token=access_token
-test_api(url=url,data=None,method='Delete',token=token)
-
-# %% [markdown]
-# # Appointment creation and listing per user
-
-# %%
-# List all Appointments
-url = 'http://127.0.0.1:8000/api/appointments/'
-token=access_token
-test_api(url=url, data=data, method='get', token=token)
-
-# %%
-# Create Appointment
-url = 'http://127.0.0.1:8000/api/appointments/'
-token=access_token
-data = {
-  "doctor": 5,
-  "patient": 3,
-  "status": "scheduled",
-  "timestamp": "2025-08-05T14:00:00Z"
-}
-test_api(url=url, data=data, method='POST', token=token)
-
-# %%
-# Retrive Appointment
-url = 'http://127.0.0.1:8000/api/appointments/6/'
-token=access_token
-test_api(url=url, data=None, method='get', token=token)
-
-# %%
-# Update Appointment
-url = 'http://127.0.0.1:8000/api/appointments/6'
-token=access_token
-data={
-    "status": "completed"
-}
-test_api(url=url, data=data, method='get', token=token)
-
-# %%
-# Delete Appointment
-url = 'http://127.0.0.1:8000/api/appointments/6/'
-token=access_token
-test_api(url=url, data=None, method='Delete', token=token)
-
-# %%
-# Get list of Appointments by doctor_id
-url = 'http://127.0.0.1:8000/api/appointments/?doctor_id=5'
-token=access_token
-test_api(url=url, data=None, method='get', token=token)
-
-# %%
-# Get list of Appointments by patient_id
-url = 'http://127.0.0.1:8000/api/appointments/?patient_id=3'
-token=access_token
-test_api(url=url, data=None, method='get', token=token)
-
-# %% [markdown]
-# # set Doctor as Online and List of online_doctors
-
-# %%
-# List of online_doctors
-url = 'http://127.0.0.1:8000/api/users/?role=online_doctors'
-token=access_token
-test_api(url=url,data=None,method='get',token=token)
-
-# %%
-# Update user status to online
-url = 'http://127.0.0.1:8000/api/users/5/'
-token=access_token
-data = {
-    "is_online": True
-}
-test_api(url=url, data=data, method='patch', token=token)
-
-# %% [markdown]
-# # End
 
 

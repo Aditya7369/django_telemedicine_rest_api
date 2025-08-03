@@ -36,5 +36,13 @@ Build a simplified Telemedicine backend service with the following features:
 
 ---
 
+# Postman API Documentation :
+* https://github.com/Aditya7369/django_telemedicine_rest_api/blob/main/Postman%20API%20Doc%20for%20Telemedicine.ipynb
+
+Please visit the above notebook
+
+---
+
+
 
 

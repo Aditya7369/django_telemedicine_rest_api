@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     ### Third-party
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_yasg',
 
     ### Local apps
     'da_users',
